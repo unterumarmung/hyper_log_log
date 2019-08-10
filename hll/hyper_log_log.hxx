@@ -33,7 +33,7 @@ public:
     using value_type = T;
 
 private:
-    std::vector<register_type> registers;
+    std::vector<register_type, Allocator> registers;
     size_type registers_count;
     uint8_t k_alternative;
     double alpha_m_squared;
