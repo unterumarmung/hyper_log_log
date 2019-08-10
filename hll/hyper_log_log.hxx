@@ -10,7 +10,6 @@
 #include <vector>
 #include <cmath> // std::log
 #include <stdexcept> // std::invalid_argument
-#include <functional> // std::function
 #include "murmur_hash.hxx"
 #include "hash.hxx"
 

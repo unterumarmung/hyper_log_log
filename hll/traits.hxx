@@ -5,7 +5,7 @@
  */
 #ifndef HLL_TRAITS_HXX
 #define HLL_TRAITS_HXX
-#include <type_traits>
+#include <utility>
 
 namespace hll { namespace traits {
 
