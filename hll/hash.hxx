@@ -16,8 +16,6 @@ namespace hll
     /// type alias for hash functions return-type
     using hash_result = uint32_t;
 
-    hash_result hash(...);
-
     /**
      * Hashes the fundamental types
      * @tparam T the value type
