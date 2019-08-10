@@ -66,7 +66,7 @@ public:
      */
     double get_relative_error() const
     {
-        return 1.04 / sqrt(registers_count);
+        return 1.04 / std::sqrt(registers_count);
     }
 
     /*!
