@@ -76,22 +76,22 @@ public:
      */
     size_type count() const;
 
-    /*!
+    /**
      * Add an element
-     * \param value - the element
+     * @param value - the element
      */
     void add(const value_type &value);
 
-    /*!
+    /**
      * Get relative error of the data structure
-     * \return - the error
+     * @return - the error
      */
     double get_relative_error() const
     {
         return 1.04 / std::sqrt(registers_count);
     }
 
-    /*!
+    /**
      * Clear the data structure
      */
     void clear()
