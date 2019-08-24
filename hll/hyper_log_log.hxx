@@ -35,7 +35,18 @@ public:
 private:
     using container_type = std::array<register_type, registers_count>;
 
-    static uint32_t count_bits(hash_result value);
+    static constexpr double get_alpha_m() noexcept 
+    {
+        return registers_count == 16
+               ? 0.673
+               : registers_count == 32
+                 ? 0.697
+                 : registers_count == 64
+                   ? 0.709
+                   : 0.7213 /
+                     (1.0 + 1.079 / registers_count);
+    }
+
     static constexpr auto k_alternative = static_cast<uint8_t>(32 - k);
     container_type registers{};
     static constexpr auto alpha_m_squared = get_alpha_m() * registers_count * registers_count;
