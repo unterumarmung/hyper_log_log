@@ -98,6 +98,10 @@ public:
     {
         registers.fill({});
     }
+
+    this_type& merge(const this_type& rhs) noexcept(noexcept(details::max({}, {})));
+    this_type& operator+=(const this_type& rhs) noexcept(noexcept(this->merge(rhs)));
+    this_type operator+(const this_type& rhs) const noexcept(noexcept(this->merge(rhs)));
 };
 
 template <typename T, std::size_t k>
@@ -171,6 +175,36 @@ void hyper_log_log<T, k>::add(const value_type &value)
     const auto bits_count = count_bits(hash_value);
     const auto rank = std::min(static_cast<uint32_t>(k_alternative), bits_count) + 1;
     registers[index] = static_cast<register_type>(std::max(static_cast<uint32_t>(registers[index]), rank));
+}
+
+template<typename T, std::size_t k>
+hyper_log_log<T, k>& hyper_log_log<T, k>::merge(const hyper_log_log::this_type &rhs)
+    noexcept(noexcept(helpers::max({},{})))
+{
+    for (auto i = 0u; i < registers_count; ++i)
+    {
+        registers[i] = hll::details::max(registers[i], rhs.registers[i]);
+    }
+    return *this;
+}
+
+template<typename T, std::size_t k>
+hyper_log_log<T, k>&
+hyper_log_log<T, k>::operator+=(const hyper_log_log::this_type &rhs)
+        noexcept(noexcept(this->merge(rhs)))
+{
+    this->merge(rhs);
+    return *this;
+}
+
+template<typename T, std::size_t k>
+hyper_log_log<T, k>
+hyper_log_log<T, k>::operator+(const hyper_log_log::this_type &rhs) const
+        noexcept(noexcept(this->merge(rhs)))
+{
+    this_type res = *this;
+    res += rhs;
+    return res;
 }
 
 } // namespace hll
