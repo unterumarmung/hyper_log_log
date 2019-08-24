@@ -30,15 +30,15 @@ public:
     /// type of size values
     using size_type = size_t;
     using value_type = T;
+    static constexpr size_type registers_count = 1u << k;
 
 private:
     using container_type = std::array<register_type, registers_count>;
-    size_type registers_count;
-    uint8_t k_alternative;
-    double alpha_m_squared;
 
     static uint32_t count_bits(hash_result value);
+    static constexpr auto k_alternative = static_cast<uint8_t>(32 - k);
     container_type registers{};
+    static constexpr auto alpha_m_squared = get_alpha_m() * registers_count * registers_count;
 public:
     /**
      * Default and parametrized constructor
