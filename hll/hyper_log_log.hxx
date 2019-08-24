@@ -195,7 +195,7 @@ hyper_log_log<T, k>& hyper_log_log<T, k>::merge(const hyper_log_log::this_type &
 {
     for (auto i = 0u; i < registers_count; ++i)
     {
-        registers[i] = hll::details::max(registers[i], rhs.registers[i]);
+        registers[i] = hll::helpers::max(registers[i], rhs.registers[i]);
     }
     return *this;
 }
