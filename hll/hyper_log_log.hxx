@@ -56,10 +56,17 @@ private:
     static uint32_t count_bits(hash_result value) noexcept;
 public:
     /**
-     * Default and parametrized constructor
+     * Default constructor
      * @param k determines registers count
      */
-    explicit hyper_log_log(uint8_t k = 15);
+    constexpr hyper_log_log() noexcept
+    {
+        static_assert(k >= 4 && k <= 30, "k must be in a range [4; 30]");
+    }
+    constexpr hyper_log_log(const this_type& rhs) = default;
+    constexpr this_type& operator=(const this_type& rhs) = default;
+    constexpr hyper_log_log(this_type&&) noexcept = default;
+    constexpr this_type& operator=(this_type&&) noexcept = default;
 
     ~hyper_log_log() = default;
 
