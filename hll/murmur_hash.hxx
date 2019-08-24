@@ -8,6 +8,7 @@
 #define HLL_MURMUR_HASH_HXX
 
 #include <cstdint>
+#include "details.hxx"
 
 /**
  * MurmurHash3 C++ implementation
@@ -16,7 +17,7 @@
  * @param seed
  * @return hash
  */
-inline uint32_t murmur_hash(const void *key, uint32_t length, uint32_t seed)
+HLL_CONSTEXPR_OR_INLINE_FUNCTION uint32_t murmur_hash(const void *key, uint32_t length, uint32_t seed) noexcept
 {
     constexpr uint32_t c1 = 0xcc9e2d51;
     constexpr uint32_t c2 = 0x1b873593;
@@ -25,8 +26,8 @@ inline uint32_t murmur_hash(const void *key, uint32_t length, uint32_t seed)
     constexpr uint32_t m = 5;
     constexpr uint32_t n = 0xe6546b64;
     const auto chunk_length = length / 4u;
-    auto chunks = static_cast<const uint32_t *>(key); // 32 bit extract from `key'
-    auto tail = static_cast<const uint8_t *>(key) + chunk_length * 4; // tail - last 8 bytes
+    const auto chunks = static_cast<const uint32_t *>(key); // 32 bit extract from `key'
+    const auto tail = static_cast<const uint8_t *>(key) + chunk_length * 4; // tail - last 8 bytes
     uint32_t h = 0;
     uint32_t k = 0;
 
