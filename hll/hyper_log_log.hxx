@@ -26,10 +26,11 @@ class hyper_log_log
 {
 public:
     /// type of registers of the data structure
-    using register_type = typename Allocator::value_type;
+    using register_type = int8_t;
     /// type of size values
     using size_type = size_t;
     using value_type = T;
+    using this_type = hyper_log_log;
     static constexpr size_type registers_count = 1u << k;
 
 private:
