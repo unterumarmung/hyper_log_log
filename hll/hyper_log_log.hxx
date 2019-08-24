@@ -7,11 +7,11 @@
 #define HYPER_LOG_LOG_HXX
 
 #include <algorithm> // std::count
-#include <vector>
+#include <array>
 #include <cmath> // std::log
 #include <stdexcept> // std::invalid_argument
-#include "murmur_hash.hxx"
 #include "hash.hxx"
+#include "helpers.hxx" // hll::helpers::max
 
 namespace hll
 {
