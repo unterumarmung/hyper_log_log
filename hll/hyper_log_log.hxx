@@ -50,7 +50,10 @@ private:
 
     static constexpr auto k_alternative = static_cast<uint8_t>(32 - k);
     container_type registers{};
+
     static constexpr auto alpha_m_squared = get_alpha_m() * registers_count * registers_count;
+
+    static uint32_t count_bits(hash_result value) noexcept;
 public:
     /**
      * Default and parametrized constructor
