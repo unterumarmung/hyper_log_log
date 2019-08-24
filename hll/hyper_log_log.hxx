@@ -153,7 +153,7 @@ auto hyper_log_log<T, k>::count() const
     // корректировка результатов в зависимости от размеров оценки
     if (estimation <= 2.5 * registers_count)
     {
-        auto zero_registers_count = std::count(registers.begin(), registers.end(), 0);
+        const auto zero_registers_count = std::count(registers.begin(), registers.end(), 0);
 
         if (zero_registers_count > 0)
             // если хотя бы один регистр "пустой", то используем linear counting
