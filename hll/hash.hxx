@@ -30,7 +30,7 @@ namespace hll
 
     /**
      * Hashes "random-access" containers of the fundamental types
-     * @tparam T the container type, must have T::size and T::data member functions and T::value_type member type
+     * @param T the container type, must have T::size and T::data member functions and T::value_type member type
      * @param value the container
      * @return hash
      */
