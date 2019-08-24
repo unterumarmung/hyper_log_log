@@ -36,7 +36,7 @@ public:
 private:
     using container_type = std::array<register_type, registers_count>;
 
-    static constexpr double get_alpha_m() noexcept 
+    static constexpr double get_alpha_m() noexcept
     {
         return registers_count == 16
                ? 0.673
