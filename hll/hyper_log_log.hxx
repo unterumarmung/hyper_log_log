@@ -57,7 +57,6 @@ private:
 public:
     /**
      * Default constructor
-     * @param k determines registers count
      */
     constexpr hyper_log_log() noexcept
     {
