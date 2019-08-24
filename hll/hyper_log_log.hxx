@@ -104,16 +104,19 @@ public:
      * @param rhs A HyperLogLog instance to merge with
      * @return this reference
      */
+    constexpr this_type& merge(const this_type& rhs) noexcept(noexcept(helpers::max({}, {})));
     /**
      * HyperLogLog's merge operator overload
      * @param rhs A HyperLogLog instance to merge with
      * @return this reference
      */
+    constexpr this_type& operator+=(const this_type& rhs) noexcept(noexcept(this->merge(rhs)));
     /**
      * Merges two HyperLogLog instances into a new one
      * @param rhs second HyperLogLog instance
      * @return Merged instance
      */
+    constexpr this_type operator+(const this_type& rhs) const noexcept(noexcept(this->merge(rhs)));
 };
 
 template <typename T, std::size_t k>
@@ -190,7 +193,7 @@ void hyper_log_log<T, k>::add(const value_type &value)
 }
 
 template<typename T, std::size_t k>
-hyper_log_log<T, k>& hyper_log_log<T, k>::merge(const hyper_log_log::this_type &rhs)
+constexpr hyper_log_log<T, k>& hyper_log_log<T, k>::merge(const hyper_log_log::this_type &rhs)
     noexcept(noexcept(helpers::max({},{})))
 {
     for (auto i = 0u; i < registers_count; ++i)
@@ -201,7 +204,7 @@ hyper_log_log<T, k>& hyper_log_log<T, k>::merge(const hyper_log_log::this_type &
 }
 
 template<typename T, std::size_t k>
-hyper_log_log<T, k>&
+constexpr hyper_log_log<T, k>&
 hyper_log_log<T, k>::operator+=(const hyper_log_log::this_type &rhs)
         noexcept(noexcept(this->merge(rhs)))
 {
@@ -210,7 +213,7 @@ hyper_log_log<T, k>::operator+=(const hyper_log_log::this_type &rhs)
 }
 
 template<typename T, std::size_t k>
-hyper_log_log<T, k>
+constexpr hyper_log_log<T, k>
 hyper_log_log<T, k>::operator+(const hyper_log_log::this_type &rhs) const
         noexcept(noexcept(this->merge(rhs)))
 {
