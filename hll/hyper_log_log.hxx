@@ -9,7 +9,6 @@
 #include <algorithm> // std::count
 #include <array>
 #include <cmath> // std::log
-#include <stdexcept> // std::invalid_argument
 #include "hash.hxx"
 #include "helpers.hxx" // hll::helpers::max
 
