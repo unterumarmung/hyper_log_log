@@ -17,10 +17,9 @@ int main() {
     double error_count = 0.0;
     int count = 0;
 
-    constexpr uint8_t hll_k = 14;
 
-    hll::hyper_log_log<int> counter(25);
-    for (int k : {10, 100, 1000, 10000, N / 10, N, N * 10, N * 100, N * 1000}) {
+    hll::hyper_log_log<int, 10> counter{};
+    for (int k : {100, 1000, 10000, N / 10, N, N * 10, N * 100, N * 1000}) {
         std::uniform_int_distribution<> dis(1, k);
         std::set<int> all;
 
