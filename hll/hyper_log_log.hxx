@@ -99,9 +99,21 @@ public:
         registers.fill({});
     }
 
-    this_type& merge(const this_type& rhs) noexcept(noexcept(details::max({}, {})));
-    this_type& operator+=(const this_type& rhs) noexcept(noexcept(this->merge(rhs)));
-    this_type operator+(const this_type& rhs) const noexcept(noexcept(this->merge(rhs)));
+    /**
+     * HyperLogLog's merge operation
+     * @param rhs A HyperLogLog instance to merge with
+     * @return this reference
+     */
+    /**
+     * HyperLogLog's merge operator overload
+     * @param rhs A HyperLogLog instance to merge with
+     * @return this reference
+     */
+    /**
+     * Merges two HyperLogLog instances into a new one
+     * @param rhs second HyperLogLog instance
+     * @return Merged instance
+     */
 };
 
 template <typename T, std::size_t k>
