@@ -21,7 +21,7 @@ namespace hll
  * @tparam T the type of values
  * @tparam Allocator allocator
  */
-template <typename T, typename Allocator = std::allocator<int8_t>>
+template <typename T, std::size_t k>
 class hyper_log_log
 {
 public:
@@ -78,8 +78,8 @@ public:
     }
 };
 
-template<typename T, typename Allocator>
-uint32_t hyper_log_log<T, Allocator>::count_bits(hash_result value)
+template <typename T, std::size_t k>
+uint32_t hyper_log_log<T, k>::count_bits(hash_result value) noexcept
 {
     if ((value & 1) == 1)
         return 0;
@@ -111,46 +111,9 @@ uint32_t hyper_log_log<T, Allocator>::count_bits(hash_result value)
 }
 
 
-template<typename T, typename Allocator>
-hyper_log_log<T, Allocator>::hyper_log_log(uint8_t k)
-{
-    if (k < 4 || k >= 31)
-        throw std::invalid_argument("k must be between [4 and 31)");
-
-    // alpha используется в дальшейшем только в (32 - k), так что вычисляем заранее
-    k_alternative = static_cast<uint8_t>(32 - k);
-
-    // быстрое возведение в степень двойки
-    registers_count = 1u << k;
-    double alpha_m;
-
-    // выбираем значение константы alpha в зависимости от кол-ва регистров
-    switch (registers_count)
-    {
-        case 16:
-            alpha_m = 0.673;
-            break;
-        case 32:
-            alpha_m = 0.697;
-            break;
-        case 64:
-            alpha_m = 0.709;
-            break;
-        default:
-            alpha_m = 0.7213 /
-                      (1.0 + 1.079 / registers_count);
-    }
-
-    // alpha используется в дальшейшем только с умножением на квадрат количества регистров, так что вычисляем заранее
-    alpha_m_squared = alpha_m * registers_count * registers_count;
-
-    registers.resize(registers_count);
-
-}
-
-template<typename T, typename Allocator>
-auto hyper_log_log<T, Allocator>::count() const
-        -> typename hyper_log_log<T, Allocator>::size_type
+template <typename T, std::size_t k>
+auto hyper_log_log<T, k>::count() const
+        -> typename hyper_log_log<T, k>::size_type
 {
     constexpr double two_32_power = 0x100000000;
     double count = 0;
@@ -178,8 +141,8 @@ auto hyper_log_log<T, Allocator>::count() const
     return static_cast<size_type>(estimation);
 }
 
-template<typename T, typename Allocator>
-void hyper_log_log<T, Allocator>::add(const value_type &value)
+template <typename T, std::size_t k>
+void hyper_log_log<T, k>::add(const value_type &value)
 {
     const auto hash_value = hll::hash(value);
     const auto index = hash_value >> k_alternative;
