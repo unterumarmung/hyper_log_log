@@ -32,12 +32,13 @@ public:
     using value_type = T;
 
 private:
-    std::vector<register_type, Allocator> registers;
+    using container_type = std::array<register_type, registers_count>;
     size_type registers_count;
     uint8_t k_alternative;
     double alpha_m_squared;
 
     static uint32_t count_bits(hash_result value);
+    container_type registers{};
 public:
     /**
      * Default and parametrized constructor
@@ -73,8 +74,7 @@ public:
      */
     void clear()
     {
-        registers.clear();
-        registers.resize(registers_count);
+        registers.fill({});
     }
 };
 
