@@ -92,9 +92,9 @@ public:
     /**
      * Clear the data structure
      */
-    void clear()
+    constexpr void clear() noexcept(noexcept(hll::helpers::array_fill(registers, {})))
     {
-        registers.fill({});
+        hll::helpers::array_fill(registers, {});
     }
 
     /**
