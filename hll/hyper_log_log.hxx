@@ -34,12 +34,6 @@ public:
     static constexpr size_type registers_count = 1u << k;
 
 private:
-    static constexpr auto k_alternative = static_cast<uint8_t>(32 - k);
-    static constexpr auto alpha_m_squared = get_alpha_m() * registers_count * registers_count;
-
-    using container_type = std::array<register_type, registers_count>;
-    container_type registers{};
-
     static constexpr double get_alpha_m() noexcept
     {
         return registers_count == 16
@@ -53,6 +47,12 @@ private:
     }
 
     static HLL_CONSTEXPR_OR_INLINE uint32_t count_bits(hash_result value) noexcept;
+
+    static constexpr auto k_alternative = static_cast<uint8_t>(32 - k);
+    static constexpr auto alpha_m_squared = get_alpha_m() * registers_count * registers_count;
+
+    using container_type = std::array<register_type, registers_count>;
+    container_type registers{};
 public:
     /**
      * Default constructor
