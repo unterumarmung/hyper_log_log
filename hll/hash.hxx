@@ -22,8 +22,8 @@ namespace hll
      * @param value the value
      * @return hash
      */
-    template <typename T>
-    constexpr hash_result hash(const T& value, typename std::enable_if<std::is_fundamental<T>::value>::type* = nullptr) noexcept
+    template <typename T, typename std::enable_if<std::is_fundamental<T>::value>::type* = nullptr>
+    constexpr hash_result hash(const T& value) noexcept
     {
         return murmur_hash(&value, sizeof(T), /*seed = */ 0);
     }
@@ -34,11 +34,8 @@ namespace hll
      * @param value the container
      * @return hash
      */
-    template <typename T>
-    constexpr hash_result hash(const T& value,
-            typename std::enable_if<
-                    hll::traits::is_ra_fundamental_container <T>::value
-            >::type* = nullptr)
+    template <typename T, typename std::enable_if<hll::traits::is_ra_fundamental_container <T>::value>::type* = nullptr>
+    constexpr hash_result hash(const T& value)
             noexcept(noexcept(value.data()) && noexcept(value.size()))
     {
         return murmur_hash(value.data(), value.size() * sizeof(T::value_type), /*seed = */ 0);
