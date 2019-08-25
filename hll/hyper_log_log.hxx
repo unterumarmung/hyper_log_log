@@ -102,7 +102,7 @@ public:
      * @param rhs A HyperLogLog instance to merge with
      * @return this reference
      */
-    constexpr this_type& merge(const this_type& rhs) noexcept(noexcept(helpers::max({}, {})));
+    constexpr this_type& merge(const this_type& rhs) noexcept(noexcept(helpers::max<register_type>({}, {})));
     /**
      * HyperLogLog's merge operator overload
      * @param rhs A HyperLogLog instance to merge with
@@ -192,7 +192,7 @@ void hyper_log_log<T, k>::add(const value_type &value)
 
 template<typename T, std::size_t k>
 constexpr hyper_log_log<T, k>& hyper_log_log<T, k>::merge(const hyper_log_log::this_type &rhs)
-    noexcept(noexcept(helpers::max({},{})))
+                                                        noexcept(noexcept(helpers::max<register_type>({}, {})))
 {
     for (auto i = 0u; i < registers_count; ++i)
     {
