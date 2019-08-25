@@ -11,6 +11,7 @@
 #include <cmath> // std::log
 #include "hash.hxx"
 #include "helpers.hxx" // hll::helpers::max
+#include "details.hxx" // HLL_CONSTEXPR_OR_INLINE
 
 namespace hll
 {
@@ -52,7 +53,7 @@ private:
 
     static constexpr auto alpha_m_squared = get_alpha_m() * registers_count * registers_count;
 
-    static uint32_t count_bits(hash_result value) noexcept;
+    static HLL_CONSTEXPR_OR_INLINE uint32_t count_bits(hash_result value) noexcept;
 public:
     /**
      * Default constructor
