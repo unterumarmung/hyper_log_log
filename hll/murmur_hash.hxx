@@ -17,7 +17,7 @@
  * @param seed
  * @return hash
  */
-HLL_CONSTEXPR_OR_INLINE_FUNCTION uint32_t murmur_hash(const void *key, uint32_t length, uint32_t seed) noexcept
+HLL_CONSTEXPR_OR_INLINE uint32_t murmur_hash(const void *key, uint32_t length, uint32_t seed) noexcept
 {
     constexpr uint32_t c1 = 0xcc9e2d51;
     constexpr uint32_t c2 = 0x1b873593;

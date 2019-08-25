@@ -7,11 +7,11 @@ namespace hll { namespace details {
 
 #if __cplusplus >= 201402L
 
-#define HLL_CONSTEXPR_OR_INLINE_FUNCTION constexpr
+#define HLL_CONSTEXPR_OR_INLINE constexpr
 
 #else
 
-#define HLL_CONSTEXPR_OR_INLINE_FUNCTION inline
+#define HLL_CONSTEXPR_OR_INLINE inline
 
 #endif // __cplusplus >= 201402L
 
