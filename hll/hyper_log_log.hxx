@@ -10,7 +10,7 @@
 #include <array>
 #include <cmath> // std::log
 #include "hash.hxx"
-#include "helpers.hxx" // hll::helpers::max
+#include "helpers.hxx" // hll::helpers::max, hll::helpers::array_fill
 #include "details.hxx" // HLL_CONSTEXPR_OR_INLINE
 
 namespace hll
