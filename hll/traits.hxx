@@ -44,12 +44,13 @@ struct has_size_member_function <T,
         : std::true_type
 { };
 
-template <typename T, typename Base = std::conditional<
+template <typename T, typename Base = typename std::conditional<
                                     has_data_member_function<T>::value    // has T::data
                                     && has_size_member_function<T>::value    // has T::size
                                     && std::is_fundamental<typename T::value_type>::value, // value_type is fundamental
                                     std::true_type,
-                                    std::false_type>>
+                                    std::false_type>
+                                    ::type>
 struct is_ra_fundamental_container : Base
 { };
 
