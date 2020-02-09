@@ -124,27 +124,27 @@ uint32_t hyper_log_log<T, k>::count_bits(hash_result value) noexcept
         return 0;
 
     uint32_t c = 1;
-    if ((value & 0b1111'1111'1111'1111) == 0)
+    if ((value & 0b1111'1111'1111'1111u) == 0)
     {
-        value >>= 16;
+        value >>= 16u;
         c += 16;
     }
-    if ((value & 0b1111'1111) == 0)
+    if ((value & 0b1111'1111u) == 0)
     {
-        value >>= 8;
+        value >>= 8u;
         c += 8;
     }
-    if ((value & 0b1111) == 0)
+    if ((value & 0b1111u) == 0)
     {
-        value >>= 4;
+        value >>= 4u;
         c += 4;
     }
-    if ((value & 0b0011) == 0)
+    if ((value & 0b0011u) == 0)
     {
-        value >>= 2;
+        value >>= 2u;
         c += 2;
     }
-    c -= value & 0b0001;
+    c -= value & 0b0001u;
 
     return c;
 }
