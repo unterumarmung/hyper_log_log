@@ -154,7 +154,7 @@ template <typename T, std::size_t k>
 auto hyper_log_log<T, k>::count() const
         -> typename hyper_log_log<T, k>::size_type
 {
-    constexpr double two_32_power = 0x100000000;
+    constexpr double TWO_32_POWER = 0x100000000;
     double count = 0;
 
     for (const auto& element : m_registers)
@@ -172,9 +172,9 @@ auto hyper_log_log<T, k>::count() const
             // если хотя бы один регистр "пустой", то используем linear counting
             estimation = registers_count * std::log(static_cast<double>(registers_count) / zero_registers_count);
     }
-    else if (estimation > (two_32_power / 30.0))
+    else if (estimation > (TWO_32_POWER / 30.0))
     { // если оценка получилась довольно большой
-        estimation = -two_32_power * std::log(1.0 - (estimation / two_32_power));
+        estimation = -TWO_32_POWER * std::log(1.0 - (estimation / TWO_32_POWER));
     }
 
     return static_cast<size_type>(estimation);
