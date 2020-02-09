@@ -52,7 +52,7 @@ private:
     static constexpr auto alpha_m_squared = get_alpha_m() * registers_count * registers_count;
 
     using container_type = std::array<register_type, registers_count>;
-    container_type registers{};
+    container_type m_registers{};
 public:
     /**
      * Default constructor
@@ -92,9 +92,9 @@ public:
     /**
      * Clear the data structure
      */
-    constexpr void clear() noexcept(noexcept(hll::helpers::array_fill(registers, {})))
+    constexpr void clear() noexcept(noexcept(hll::helpers::array_fill(m_registers, {})))
     {
-        hll::helpers::array_fill(registers, {});
+        hll::helpers::array_fill(m_registers, {});
     }
 
     /**
@@ -157,7 +157,7 @@ auto hyper_log_log<T, k>::count() const
     constexpr double two_32_power = 0x100000000;
     double count = 0;
 
-    for (const auto& element : registers)
+    for (const auto& element : m_registers)
         count += 1.0 / (1u << element);
 
     // Оценка количества элементов
@@ -166,7 +166,7 @@ auto hyper_log_log<T, k>::count() const
     // корректировка результатов в зависимости от размеров оценки
     if (estimation <= 2.5 * registers_count)
     {
-        const auto zero_registers_count = std::count(registers.begin(), registers.end(), 0);
+        const auto zero_registers_count = std::count(m_registers.begin(), m_registers.end(), 0);
 
         if (zero_registers_count > 0)
             // если хотя бы один регистр "пустой", то используем linear counting
@@ -187,7 +187,7 @@ void hyper_log_log<T, k>::add(const value_type &value)
     const auto index = hash_value >> k_alternative;
     const auto bits_count = count_bits(hash_value);
     const auto rank = std::min(static_cast<uint32_t>(k_alternative), bits_count) + 1;
-    registers[index] = static_cast<register_type>(std::max(static_cast<uint32_t>(registers[index]), rank));
+    m_registers[index] = static_cast<register_type>(std::max(static_cast<uint32_t>(m_registers[index]), rank));
 }
 
 template<typename T, std::size_t k>
@@ -196,7 +196,7 @@ constexpr hyper_log_log<T, k>& hyper_log_log<T, k>::merge(const hyper_log_log::t
 {
     for (auto i = 0u; i < registers_count; ++i)
     {
-        registers[i] = hll::helpers::max(registers[i], rhs.registers[i]);
+        m_registers[i] = hll::helpers::max(m_registers[i], rhs.m_registers[i]);
     }
     return *this;
 }
