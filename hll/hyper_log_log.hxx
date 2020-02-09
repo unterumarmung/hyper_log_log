@@ -203,7 +203,7 @@ constexpr hyper_log_log<T, k>& hyper_log_log<T, k>::merge(const hyper_log_log::t
 
 template<typename T, std::size_t k>
 constexpr hyper_log_log<T, k>&
-hyper_log_log<T, k>::operator+=(const hyper_log_log::this_type &rhs)
+hyper_log_log<T, k>::operator+=(const typename hyper_log_log::this_type &rhs)
         noexcept(noexcept(this->merge(rhs)))
 {
     this->merge(rhs);
@@ -212,7 +212,7 @@ hyper_log_log<T, k>::operator+=(const hyper_log_log::this_type &rhs)
 
 template<typename T, std::size_t k>
 constexpr hyper_log_log<T, k>
-hyper_log_log<T, k>::operator+(const hyper_log_log::this_type &rhs) const
+hyper_log_log<T, k>::operator+(const typename hyper_log_log::this_type &rhs) const
         noexcept(noexcept(this->merge(rhs)))
 {
     this_type res = *this;
