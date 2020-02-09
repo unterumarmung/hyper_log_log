@@ -118,9 +118,9 @@ public:
 };
 
 template <typename T, std::size_t k>
-uint32_t hyper_log_log<T, k>::count_bits(hash_result value) noexcept
+HLL_CONSTEXPR_OR_INLINE uint32_t hyper_log_log<T, k>::count_bits(hash_result value) noexcept
 {
-    if ((value & 1) == 1)
+    if ((value & 1u) == 1)
         return 0;
 
     uint32_t c = 1;
@@ -161,7 +161,7 @@ auto hyper_log_log<T, k>::count() const
         count += 1.0 / (1u << element);
 
     // Оценка количества элементов
-    double estimation = alpha_m_squared / count;
+    auto estimation = alpha_m_squared / count;
 
     // корректировка результатов в зависимости от размеров оценки
     if (estimation <= 2.5 * registers_count)
