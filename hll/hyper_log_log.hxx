@@ -19,7 +19,7 @@ namespace hll
 /**
  * @brief HyperLogLog C++11 generic implementation
  * @tparam T the type of values
- * @tparam Allocator allocator
+ * @tparam k number that controls number of registers as 2^k
  */
 template <typename T, std::size_t k>
 class hyper_log_log
@@ -68,9 +68,9 @@ public:
 
     ~hyper_log_log() = default;
 
-    /*!
+    /**
      * Get unique numbers count
-     * \return - the count
+     * @return - the count
      */
     size_type count() const;
 
