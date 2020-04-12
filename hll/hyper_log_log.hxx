@@ -21,7 +21,7 @@ namespace hll
  * @tparam T the type of values
  * @tparam k number that controls number of registers as 2^k
  */
-template <typename T, std::size_t k>
+template<typename T, std::size_t k>
 class hyper_log_log
 {
 public:
@@ -65,7 +65,7 @@ public:
      * Add an element
      * @param value - the element
      */
-    HLL_CONSTEXPR_OR_INLINE void add(const value_type &value);
+    HLL_CONSTEXPR_OR_INLINE void add(const value_type& value);
 
     /**
      * Get relative error of the data structure
@@ -89,7 +89,8 @@ public:
      * @param rhs A HyperLogLog instance to merge with
      * @return this reference
      */
-    HLL_CONSTEXPR_OR_INLINE this_type& merge(const this_type& rhs) noexcept(noexcept(helpers::max<register_type>({}, {})));
+    HLL_CONSTEXPR_OR_INLINE this_type&
+    merge(const this_type& rhs) noexcept(noexcept(helpers::max<register_type>({}, {})));
     /**
      * HyperLogLog's merge operator overload
      * @param rhs A HyperLogLog instance to merge with
@@ -104,7 +105,7 @@ public:
     HLL_CONSTEXPR_OR_INLINE this_type operator+(const this_type& rhs) const noexcept(noexcept(merge(rhs)));
 };
 
-template <typename T, std::size_t k>
+template<typename T, std::size_t k>
 HLL_CONSTEXPR_OR_INLINE uint32_t hyper_log_log<T, k>::count_bits(hash_result value) noexcept
 {
     if ((value & 1u) == 1)
@@ -137,9 +138,9 @@ HLL_CONSTEXPR_OR_INLINE uint32_t hyper_log_log<T, k>::count_bits(hash_result val
 }
 
 
-template <typename T, std::size_t k>
+template<typename T, std::size_t k>
 HLL_CONSTEXPR_OR_INLINE auto hyper_log_log<T, k>::count() const
-        -> typename hyper_log_log<T, k>::size_type
+-> typename hyper_log_log<T, k>::size_type
 {
     constexpr double TWO_32_POWER = 0x100000000;
     double count = 0;
@@ -158,8 +159,7 @@ HLL_CONSTEXPR_OR_INLINE auto hyper_log_log<T, k>::count() const
         if (zero_registers_count > 0)
             // если хотя бы один регистр "пустой", то используем linear counting
             estimation = registers_count * std::log(static_cast<double>(registers_count) / zero_registers_count);
-    }
-    else if (estimation > (TWO_32_POWER / 30.0))
+    } else if (estimation > (TWO_32_POWER / 30.0))
     { // если оценка получилась довольно большой
         estimation = -TWO_32_POWER * std::log(1.0 - (estimation / TWO_32_POWER));
     }
@@ -167,8 +167,8 @@ HLL_CONSTEXPR_OR_INLINE auto hyper_log_log<T, k>::count() const
     return static_cast<size_type>(estimation);
 }
 
-template <typename T, std::size_t k>
-HLL_CONSTEXPR_OR_INLINE void hyper_log_log<T, k>::add(const value_type &value)
+template<typename T, std::size_t k>
+HLL_CONSTEXPR_OR_INLINE void hyper_log_log<T, k>::add(const value_type& value)
 {
     const auto hash_value = hll::hash(value);
     const auto index = hash_value >> k_alternative;
@@ -178,8 +178,8 @@ HLL_CONSTEXPR_OR_INLINE void hyper_log_log<T, k>::add(const value_type &value)
 }
 
 template<typename T, std::size_t k>
-HLL_CONSTEXPR_OR_INLINE hyper_log_log<T, k>& hyper_log_log<T, k>::merge(const hyper_log_log::this_type &rhs)
-                                                        noexcept(noexcept(helpers::max<register_type>({}, {})))
+HLL_CONSTEXPR_OR_INLINE hyper_log_log<T, k>& hyper_log_log<T, k>::merge(const hyper_log_log::this_type& rhs)
+noexcept(noexcept(helpers::max<register_type>({}, {})))
 {
     for (auto i = 0u; i < registers_count; ++i)
     {
@@ -190,8 +190,8 @@ HLL_CONSTEXPR_OR_INLINE hyper_log_log<T, k>& hyper_log_log<T, k>::merge(const hy
 
 template<typename T, std::size_t k>
 HLL_CONSTEXPR_OR_INLINE hyper_log_log<T, k>&
-hyper_log_log<T, k>::operator+=(const typename hyper_log_log::this_type &rhs)
-        noexcept(noexcept(merge(rhs)))
+hyper_log_log<T, k>::operator+=(const typename hyper_log_log::this_type& rhs)
+noexcept(noexcept(merge(rhs)))
 {
     this->merge(rhs);
     return *this;
@@ -199,8 +199,8 @@ hyper_log_log<T, k>::operator+=(const typename hyper_log_log::this_type &rhs)
 
 template<typename T, std::size_t k>
 HLL_CONSTEXPR_OR_INLINE hyper_log_log<T, k>
-hyper_log_log<T, k>::operator+(const typename hyper_log_log::this_type &rhs) const
-        noexcept(noexcept(merge(rhs)))
+hyper_log_log<T, k>::operator+(const typename hyper_log_log::this_type& rhs) const
+noexcept(noexcept(merge(rhs)))
 {
     this_type res = *this;
     res += rhs;
