@@ -25,6 +25,7 @@ template <typename T, std::size_t k>
 class hyper_log_log
 {
 public:
+    static_assert(k >= 4 && k <= 30, "k must be in a range [4; 30]");
     /// type of registers of the data structure
     using register_type = int8_t;
     /// type of size values
