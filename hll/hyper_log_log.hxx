@@ -56,20 +56,6 @@ private:
     container_type m_registers{};
 public:
     /**
-     * Default constructor
-     */
-    constexpr hyper_log_log() noexcept
-    {
-        static_assert(k >= 4 && k <= 30, "k must be in a range [4; 30]");
-    }
-    constexpr hyper_log_log(const this_type& rhs) = default;
-    constexpr hyper_log_log& operator=(const this_type& rhs) = default;
-    constexpr hyper_log_log(this_type&&) noexcept = default;
-    constexpr hyper_log_log& operator=(this_type&&) noexcept = default;
-
-    ~hyper_log_log() = default;
-
-    /**
      * Get unique numbers count
      * @return - the count
      */
