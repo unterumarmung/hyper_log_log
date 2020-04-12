@@ -13,7 +13,7 @@
 namespace hll { namespace helpers {
 
 template <typename T>
-constexpr const T& max(const T& lhs, const T& rhs) noexcept(noexcept(lhs > rhs))
+HLL_CONSTEXPR_OR_INLINE const T& max(const T& lhs, const T& rhs) noexcept(noexcept(lhs > rhs))
 {
     return lhs > rhs ? lhs : rhs;
 }
