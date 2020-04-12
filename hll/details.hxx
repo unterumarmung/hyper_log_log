@@ -3,7 +3,10 @@
 
 #include <type_traits>
 
-namespace hll { namespace details {
+namespace hll
+{
+namespace details
+{
 
 #if __cplusplus >= 201402L
 
@@ -14,7 +17,6 @@ namespace hll { namespace details {
 #define HLL_CONSTEXPR_OR_INLINE inline
 
 #endif // __cplusplus >= 201402L
-
 
 } // namespace details
 } // namespace hll
