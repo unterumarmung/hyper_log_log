@@ -1,6 +1,5 @@
 #include <set>
 #include <random>
-#include <cassert>
 #include <iostream>
 #include "hll/hyper_log_log.hxx"
 
@@ -18,7 +17,7 @@ int main() {
     int count = 0;
 
 
-    hll::hyper_log_log<int, 10> counter{};
+    hll::hyper_log_log<int, 12> counter{};
     for (int k : {100, 1000, 10000, N / 10, N, N * 10, N * 100, N * 1000}) {
         std::uniform_int_distribution<> dis(1, k);
         std::set<int> all;
