@@ -111,12 +111,12 @@ HLL_CONSTEXPR_OR_INLINE uint32_t hyper_log_log<T, k>::count_bits(hash_result val
         return 0;
 
     uint32_t c = 1;
-    if ((value & 0b1111'1111'1111'1111u) == 0)
+    if ((value & 0b1111111111111111u) == 0)
     {
         value >>= 16u;
         c += 16;
     }
-    if ((value & 0b1111'1111u) == 0)
+    if ((value & 0b11111111u) == 0)
     {
         value >>= 8u;
         c += 8;
